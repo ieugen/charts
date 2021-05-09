@@ -1,10 +1,11 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: {{ include "ofbiz.fullname" . }}
   labels:
     {{- include "ofbiz.labels" . | nindent 4 }}
 spec:
+  serviceName: {{ include "ofbiz.fullname" . }}
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
@@ -27,24 +28,39 @@ spec:
       serviceAccountName: {{ include "ofbiz.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      volumes:
+      - name: runtime
+        persistentVolumeClaim:
+          claimName: {{ include "ofbiz.fullname" . }}-runtime
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          volumeMounts:
+          - name: runtime
+            mountPath: /opt/ofbiz/runtime
           ports:
             - name: http
-              containerPort: 80
+              containerPort: 8080
               protocol: TCP
-          livenessProbe:
-            httpGet:
-              path: /
-              port: http
-          readinessProbe:
-            httpGet:
-              path: /
-              port: http
+            - name: https
+              containerPort: 8443
+              protocol: TCP
+          # TODO: probes fail with 404 - need a status / up url
+          # livenessProbe:
+          #   httpGet:
+          #     path: /
+          #     port: http
+          #   initialDelaySeconds: 35
+          #   periodSeconds: 5
+          # readinessProbe:
+          #   httpGet:
+          #     path: /
+          #     port: http
+          #   initialDelaySeconds: 35
+          #   periodSeconds: 5
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}

@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "ofbiz.fullname" . }}-runtime
+spec:
+  accessModes:
+  - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: "{{ .Values.volumes.storageClassName }}" # Empty string must be explicitly set otherwise default StorageClass will be set

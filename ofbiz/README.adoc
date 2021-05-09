@@ -1,0 +1,37 @@
+= Helm chart for Apache OFBiz
+
+Using StatefulSet because Derby locks the DB.
+With Deployment, during upgrades, two instances will try to run at the same time.
+
+*Status*: Developing/Alpha
+
+== How to use the chart
+
+* Clone this repository
+* Write your configuration in a yml (values) file
+* Deploy using helm
+
+
+[source,shell]
+--
+    git clone https://github.com/ieugen/charts.git && cd charts
+
+    kubectl create namespace ofbiz-demo
+
+    helm upgrade --install ofbiz-demo ./ofbiz/ --namespace ofbiz-demo -f ofbiz-demo-values.yml --debug
+
+    kubectl get pods -n ofbiz-demo
+    NAME                          READY   STATUS    RESTARTS   AGE
+    ofbiz-demo-ofbiz-0                   1/1     Running   0          18m
+--
+
+
+== Roadmap/TODO
+
+* [x] Initial chart with embedded Derby
+* [x] Expose service via ingress
+* [x] Support persistence volume claim for runtime
+* [ ] Figure out how to pass configuration - OFBIz has lots of configuration files spread out in all places
+* [ ] Implement external database (PostgreSQL) support
+* [ ] Implement external persistent volume claim
+* [ ] Publish chart to artifacthub.io / chart repository
