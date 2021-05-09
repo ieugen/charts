@@ -32,6 +32,9 @@ spec:
       - name: runtime
         persistentVolumeClaim:
           claimName: {{ include "ofbiz.fullname" . }}-runtime
+      - name: configmap
+        configMap:
+          name: {{ include "ofbiz.fullname" . }}
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
@@ -41,6 +44,10 @@ spec:
           volumeMounts:
           - name: runtime
             mountPath: /opt/ofbiz/runtime
+          volumeMounts:
+          - name: configmap
+            mountPath: /opt/ofbiz/config
+            readOnly: true
           ports:
             - name: http
               containerPort: 8080

@@ -8,7 +8,7 @@ With Deployment, during upgrades, two instances will try to run at the same time
 == How to use the chart
 
 * Clone this repository
-* Write your configuration in a yml (values) file
+* Write your configuration in a yml (values) file. See `values.yaml` file for details and examples.
 * Deploy using helm
 
 
@@ -25,6 +25,43 @@ With Deployment, during upgrades, two instances will try to run at the same time
     ofbiz-demo-ofbiz-0                   1/1     Running   0          18m
 --
 
+=== How to pass configuration to OFBiz
+
+We use a Docker image that ahs `/opt/ofbiz/config` first on the path.
+Any file put there will be on the classpath and should be before the ones in the jar file. This might not always work.
+
+In your custom-values.yaml file add a `config` map where the keys are the config file names and the values are the contents.
+
+Each key will be mounted as a file in the OFBiz container.
+
+.Example custom-values.yaml
+[source,yaml]
+--
+config:
+  security.properties: |
+    # -- define the password restrictions --
+    password.length.min=5
+    # REDACTED FOR BREVITY ....
+    host-headers-allowed=localhost,127.0.0.1,ofbiz.netdava.com,
+    # REDACTED FOR BREVITY ....
+
+  cache.proeprties: |
+    ####
+    # OFBiz UtilCache properties File
+    ####
+
+    # Default Settings
+    # Sets the maximum number of entries that can be placed in the cache. A
+    # setting of zero indicates no maximum.
+    #default.maxSize=0
+
+    # REDACTED FOR BREVITY ....
+--
+
+Deploying with the above configuration values will create security.properties and cache.properties in /opt/ofbiz/config inside the running container.
+
+For more information see https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/#populate-a-volume-with-data-stored-in-a-configmap .
+
 
 == Roadmap/TODO
 
@@ -35,3 +72,7 @@ With Deployment, during upgrades, two instances will try to run at the same time
 * [ ] Implement external database (PostgreSQL) support
 * [ ] Implement external persistent volume claim
 * [ ] Publish chart to artifacthub.io / chart repository
+* [ ] Support themes updates / customization
+* [ ] Support plugin updates / customization
+* [ ] Liveness and readiness probes
+* [ ] Support data loading on initialization

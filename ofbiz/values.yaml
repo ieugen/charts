@@ -84,3 +84,18 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+
+#
+# Pass configuration to OFBiz via conf key.
+# Name of key MUST BE the name of configuration file: security.properties.
+#
+# The contents of that key will be mounted as a file with the same name in /opt/ofbiz/config.
+# The directory /opt/ofbiz/config is first on the classpath.
+# The configuration SHOULD be loaded before the ones in the jar files.
+#
+# Note: This might not work with all files.
+#
+# config:
+  # security.properties: |
+    # Put security contents here
