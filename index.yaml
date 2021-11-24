@@ -1,0 +1,14 @@
+apiVersion: v1
+entries:
+  ofbiz:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2021-11-24T14:18:56.405182048Z"
+    description: An unofficial Helm chart to deploy Apache OFBiz to Kubernetes
+    digest: 4c24fc232664d534d60b0b5ef286772b697d66710548a2c6565b0afd4a0943c8
+    name: ofbiz
+    type: application
+    urls:
+    - https://github.com/ieugen/charts/releases/download/ofbiz-0.1.0/ofbiz-0.1.0.tgz
+    version: 0.1.0
+generated: "2021-11-24T14:18:56.405189148Z"
