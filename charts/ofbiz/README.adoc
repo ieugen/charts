@@ -7,22 +7,25 @@ With Deployment, during upgrades, two instances will try to run at the same time
 
 == How to use the chart
 
-* Clone this repository
+* Add this chart repository
 * Write your configuration in a yml (values) file. See `values.yaml` file for details and examples.
 * Deploy using helm
 
-
 [source,shell]
 --
-    git clone https://github.com/ieugen/charts.git && cd charts
+  # Add this chart repository or clone git repo
+  helm repo add ieugen-charts https://ieugen.github.io/charts
+  helm repo update
 
-    kubectl create namespace ofbiz-demo
+  kubectl create namespace ofbiz-demo
 
-    helm upgrade --install ofbiz-demo ./ofbiz/ --namespace ofbiz-demo -f ofbiz-demo-values.yml --debug
+  # Install ofbiz in kubernetes
+  helm upgrade --install ofbiz-demo ieugen-charts/ofbiz --namespace ofbiz-demo -f ofbiz-demo-values.yml --debug
 
-    kubectl get pods -n ofbiz-demo
-    NAME                          READY   STATUS    RESTARTS   AGE
-    ofbiz-demo-ofbiz-0                   1/1     Running   0          18m
+  # Check out the running application
+  kubectl get pods -n ofbiz-demo
+  NAME                          READY   STATUS    RESTARTS   AGE
+  ofbiz-demo-ofbiz-0                   1/1     Running   0          18m
 --
 
 === How to pass configuration to OFBiz
@@ -71,7 +74,7 @@ For more information see https://kubernetes.io/docs/tasks/configure-pod-containe
 * [ ] Figure out how to pass configuration - OFBIz has lots of configuration files spread out in all places
 * [ ] Implement external database (PostgreSQL) support
 * [ ] Implement external persistent volume claim
-* [ ] Publish chart to artifacthub.io / chart repository
+* [x] Publish chart to artifacthub.io / chart repository
 * [ ] Support themes updates / customization
 * [ ] Support plugin updates / customization
 * [ ] Liveness and readiness probes
