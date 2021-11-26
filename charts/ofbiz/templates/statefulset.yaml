@@ -55,19 +55,18 @@ spec:
             - name: https
               containerPort: 8443
               protocol: TCP
-          # TODO: probes fail with 404 - need a status / up url
           # livenessProbe:
           #   httpGet:
-          #     path: /
+          #     path: accounting/control/login
           #     port: http
           #   initialDelaySeconds: 35
-          #   periodSeconds: 5
+          #   periodSeconds: 15
           # readinessProbe:
           #   httpGet:
-          #     path: /
+          #     path: accounting/control/login
           #     port: http
           #   initialDelaySeconds: 35
-          #   periodSeconds: 5
+          #   periodSeconds: 15
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}

@@ -71,6 +71,7 @@ For more information see https://kubernetes.io/docs/tasks/configure-pod-containe
 * [x] Initial chart with embedded Derby
 * [x] Expose service via ingress
 * [x] Support persistence volume claim for runtime
+* [ ] Provide ofbiz initialization - via init container
 * [ ] Figure out how to pass configuration - OFBIz has lots of configuration files spread out in all places
 * [ ] Implement external database (PostgreSQL) support
 * [ ] Implement external persistent volume claim
