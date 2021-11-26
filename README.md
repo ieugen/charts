@@ -4,7 +4,7 @@ Collection of kubernetes charts I develop.
 
 See the latest [chart index](https://ieugen.github.io/charts/index.yaml).
 
-Source code and individual chart documentation is available in git repo https://github.com/ieugen/charts .
+Source code and individual chart documentation is available in git repo [https://github.com/ieugen/charts](https://github.com/ieugen/charts) .
 ## Usage
 
 [Helm](https://helm.sh) must be installed to use the charts.  Please refer to
@@ -13,6 +13,8 @@ Helm's [documentation](https://helm.sh/docs) to get started.
 Once Helm has been set up correctly, add the repo as follows:
 
     helm repo add ieugen-charts https://ieugen.github.io/charts
+    helm repo update
+    helm search repo ieugen-charts
 
 If you had already added this repo earlier, run `helm repo update` to retrieve
 the latest versions of the packages.  You can then run `helm search repo
