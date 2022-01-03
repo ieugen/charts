@@ -1,5 +1,27 @@
 apiVersion: v1
 entries:
+  another-ldap-auth:
+  - apiVersion: v2
+    appVersion: 2.2.1
+    created: "2022-01-03T19:31:28.443570996Z"
+    description: A Helm chart using another-ldap-auth to enable AD or LDAP based basic-authentication
+      for ingress resources
+    digest: d2359f99f23fb9dc56b0096bc9e5d54abdfd82a15b23832e351719a7f95563d2
+    home: https://github.com/dignajar/another-ldap-auth
+    keywords:
+    - ingress
+    - nginx
+    - ldap
+    - activedirectory
+    - authentication
+    - another-ldap-auth
+    name: another-ldap-auth
+    sources:
+    - https://github.com/dignajar/another-ldap-auth
+    type: application
+    urls:
+    - https://github.com/ieugen/charts/releases/download/another-ldap-auth-0.3.0/another-ldap-auth-0.3.0.tgz
+    version: 0.3.0
   ofbiz:
   - apiVersion: v2
     appVersion: trunk
@@ -21,4 +43,4 @@ entries:
     urls:
     - https://github.com/ieugen/charts/releases/download/ofbiz-0.1.0/ofbiz-0.1.0.tgz
     version: 0.1.0
-generated: "2021-11-26T07:52:03.189050466Z"
+generated: "2022-01-03T19:31:28.443676295Z"
